@@ -18,6 +18,31 @@ def update_heroes(heroes)
   return heroes
 end
 
+def print_menu_jin(heroes)
+  puts "As Jin Sakai, what do you want to do this turn?"
+  puts "1) Attack an enemy"
+  unless heroes.drop(1).empty?
+    puts "2) Heal an ally"
+  end
+  puts "Enter your answer: "
+end
+
+def print_menu_villain(villains)
+  puts "Which enemy you want to attack?"
+  villains.each_with_index do |villain, index|
+    puts "#{index+1}) #{villain.name}"
+  end
+  puts "Enter your answer: "
+end
+
+def print_menu_ally(allies)
+  puts "Which ally you want to heal?"
+  allies.each_with_index do |ally, index|
+    puts "#{index+1}) #{ally.name}"
+  end
+  puts "Enter your answer: "
+end
+
 jin = Hero.new("Jin Shakai",100,50,0.8)
 yuna = Hero.new("Yuna",90,45,0)
 sensei = Hero.new("Sensei Ishikawa",80,60,0)
@@ -45,31 +70,16 @@ until (villains.empty? || heroes.empty?) do
   puts "\n"
 
   unless jin.die? 
-    puts "As Jin Sakai, what do you want to do this turn?"
-    puts "1) Attack an enemy"
-    unless heroes.drop(1).empty?
-      puts "2) Heal an ally"
-    end
-    puts "Enter your answer: "
+    print_menu_jin(heroes)
     opt = gets.chomp.to_i
 
     if opt==1
-      puts "Which enemy you want to attack?"
-      villains.each_with_index do |villain, index|
-        puts "#{index+1}) #{villain.name}"
-      end
-      puts "Enter your answer: "
-
+      print_menu_villain(villains)
       opt_vil = gets.chomp.to_i
       jin.attack(villains[opt_vil-1])
       villains = update_villain(villains)
     else #opt 2
-      puts "Which ally you want to heal?"
-      heroes.drop(1).each_with_index do |ally, index|
-        puts "#{index+1}) #{ally.name}"
-      end
-      puts "Enter your answer: "
-
+      print_menu_ally(heroes.drop(1))
       opt_al = gets.chomp.to_i
       jin.heal(heroes[opt_al])
     end
