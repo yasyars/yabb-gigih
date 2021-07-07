@@ -83,7 +83,6 @@ until (villains.empty? || heroes.empty?) do
       opt_al = gets.chomp.to_i
       jin.heal(heroes[opt_al])
     end
-
     allies = heroes.drop(1)
   else
     allies = heroes
