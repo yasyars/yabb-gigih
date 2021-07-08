@@ -10,7 +10,6 @@ class Person
 
   def take_damage(enemy_damage)
     @hitpoint-= enemy_damage
-    puts self
   end
 
   def attack(other_person)

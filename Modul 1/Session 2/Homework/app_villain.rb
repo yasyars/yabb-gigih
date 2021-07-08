@@ -69,7 +69,7 @@ until (villains.empty? || heroes.empty?) do
   end
   puts "\n"
 
-  unless jin.die? 
+  if heroes.include?(jin)
     print_menu_jin(heroes)
     opt = gets.chomp.to_i
 

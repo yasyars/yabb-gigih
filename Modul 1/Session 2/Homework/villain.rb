@@ -7,7 +7,9 @@ class Villain < Person
 
   def take_damage(enemy_damage)
     @hitpoint-=enemy_damage
-    flee if rand < @flee_percentage && @hitpoint>0
+    if @hitpoint <= 50 && @hitpoint >0
+      flee if rand < @flee_percentage && @hitpoint>0
+    end
   end
 
   def attack(other_player)
