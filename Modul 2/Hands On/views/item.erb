@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  
+  <div>
+    <% items.each_with_index do |item,index| %>
+      <div>
+        <%= index+1 %>) name: <%= item[:name] %> , price: <%= item[:price] %>
+      </div>
+    <% end %>
+  </div>
+
+  <a href="/home"> back </a>
+
+</body>
+
+</html>
