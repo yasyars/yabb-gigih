@@ -1,0 +1,19 @@
+<h1>Items</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Category</th>
+  </tr>
+  <% items.each do |item| %>
+  <tr>
+    <td><%= item["name"]%></td>
+    <td><%= item["price"] %> </td>
+    <td><%= item["categories_name"] %> </td>
+  </tr>
+
+  <% end %>
+
+  <a href = "/items/new">New Item</a>
+</table>

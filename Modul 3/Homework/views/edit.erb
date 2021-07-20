@@ -1,0 +1,23 @@
+<h1 >Edit Item</h1>
+
+<form method="POST" action='/items/<%= item.id %>'>
+  <input name="name" type="text" placeholder="Item name" value="<%=item.name%>">
+  <input name ="price" type="number" placeholder="Item price" value="<%=item.price%>">
+
+  <select  name="category_id" value=<%= item.id%> :selected=<%= item.id%>>
+  <% categories.each do |category| %>
+    <option
+      value = <%= category.id%>
+      <% if category.id == item.category.id%>
+      selected
+      <%end%>
+      >
+      <%= category.name%>
+    </option>
+  <% end %>
+  </select>
+ <input name="_method" type="hidden" value="put">
+  <button type="submit"> Update item</button>
+</form>
+
+<a class="d-flex justify-content-center mt-5" href='/'>Back</a>
