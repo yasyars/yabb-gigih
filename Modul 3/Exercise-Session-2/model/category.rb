@@ -26,4 +26,5 @@ class Category
     category = Category.new(data["id"],data["name"])
     category
   end
+
 end
