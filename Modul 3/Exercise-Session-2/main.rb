@@ -33,7 +33,7 @@ post '/items/create' do
   category_id= params['category_id']
   category = Category.find(category_id)
   item = Item.new(nil,name, price,category)
-  item.insert_item_with_category
+  item.save_with_category
   redirect '/'
 end
 
@@ -52,13 +52,13 @@ put '/items/:item_id' do
   category_id = params['category_id']
   category = Category.find(category_id)
   item = Item.find(item_id)
-  item.update_item(name, price,category)
+  item.update(name, price,category)
   redirect "/items/#{item_id}"
 end
 
 delete '/items/:item_id' do
   item_id = params['item_id']
   item = Item.find(item_id)
-  item.delete
+  item.destroy
   redirect '/'
 end

@@ -34,7 +34,7 @@ class Item
     items
   end
 
-  def insert_item_with_category
+  def save_with_category
     return false unless valid?
     puts @category
     client = create_db_client
@@ -43,7 +43,7 @@ class Item
     client.query("INSERT INTO item_categories (item_id, category_id) VALUES ('#{item_id}', '#{@category.id}')")
   end
 
-  def update_item(new_name, new_price, new_category)
+  def update(new_name, new_price, new_category)
     client = create_db_client
     client.query("UPDATE items SET name='#{new_name}',price='#{new_price}' WHERE items.id=#{@id}")
     item_categories = client.query("SELECT * FROM item_categories WHERE item_id=#{@id}")
@@ -54,7 +54,7 @@ class Item
     end
   end
 
-  def delete
+  def destroy
     client = create_db_client
     client.query("DELETE FROM item_categories WHERE item_id = #{@id}")
     client.query("DELETE FROM order_details WHERE item_id = #{@id}")
