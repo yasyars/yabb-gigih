@@ -4,11 +4,11 @@ require_relative 'category'
 class Item
   attr_reader :id, :name, :price, :categories
   
-  def initialize(id, name, price, categories=[])
-    @id=id
-    @name=name
-    @price =price
-    @categories =categories
+  def initialize(param)
+    @id=param[:id]
+    @name=param[:name]
+    @price =param[:price]
+    @categories = param[:categories] ? param[:categories] : []
   end
  
   def self.find(item_id)
@@ -16,7 +16,11 @@ class Item
     query = "SELECT DISTINCT items.id, items.name , items.price FROM items WHERE items.id = #{item_id}"
     data = client.query(query).first
     categories = Category.find_by_item_id(data["id"])
-    item = Item.new(data["id"], data["name"], data["price"], categories)
+    item = Item.new({
+      id:data["id"], 
+      name: data["name"], 
+      price: data["price"], 
+      categories: categories})
     item
   end
 
@@ -28,7 +32,10 @@ class Item
       JOIN items ON item_categories.item_id = items.id
       WHERE item_categories.category_id = #{category.id}")
     rawData.each do |data|
-      item = Item.new(data["id"],data["name"],data["price"])
+      item = Item.new({
+        id: data["id"],
+        name: data["name"],
+        price: data["price"]})
       items.push(item)
     end
     items
@@ -39,7 +46,10 @@ class Item
     rawData = client.query("SELECT * FROM items")
     items = Array.new
     rawData.each do |data|
-      item = Item.new(data["id"], data["name"], data["price"])
+      item = Item.new({
+        id: data["id"], 
+        name: data["name"], 
+        price: data["price"]})
       items.push(item)
     end
     items

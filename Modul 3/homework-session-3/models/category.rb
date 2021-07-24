@@ -4,10 +4,10 @@ class Category
   attr_reader :id, :name, :items
   attr_accessor :items
 
-  def initialize(id, name=nil, items=[])
-    @id =id
-    @name =name
-    @items = items
+  def initialize(param)
+    @id =param[:id]
+    @name =param[:name]
+    @items = param[:items] ? param[:items] : []
   end
 
   def self.find_all
@@ -15,7 +15,9 @@ class Category
     rawData = client.query("SELECT * FROM categories ORDER BY categories.id ASC")
     categories = Array.new
     rawData.each do |data|
-      category = Category.new(data["id"], data["name"])
+      category = Category.new({
+        id: data["id"], 
+        name: data["name"]})
       categories.push(category)
     end
     categories
@@ -25,7 +27,9 @@ class Category
     client = create_db_client
     rawData = client.query("SELECT * FROM categories WHERE id = #{id}")
     data = rawData.each[0]
-    category = Category.new(data["id"],data["name"])
+    category = Category.new({
+      id: data["id"],
+      name: data["name"]})
     category
   end
 
@@ -33,7 +37,9 @@ class Category
     client = create_db_client
     rawData = client.query("SELECT * FROM categories WHERE name= '#{name}'")
     data = rawData.each[0]
-    category = Category.new(data["id"],data["name"])
+    category = Category.new({
+      id: data["id"],
+      name: data["name"]})
     category
   end
 
@@ -61,7 +67,9 @@ class Category
     rawData = client.query(query)
     categories = Array.new
     rawData.each do |data|
-      category = Category.new(data["id"], data["name"])
+      category = Category.new({
+        id: data["id"], 
+        name: data["name"]})
       categories.push(category)
     end
     categories
@@ -75,7 +83,9 @@ class Category
     rawDataCategory = client.query(query_category)
     categories = Array.new
     rawDataCategory.each do |data|
-      category = Category.new(data["category_id"], data["category_name"])
+      category = Category.new({
+        id: data["category_id"], 
+        name: data["category_name"]})
       categories.push(category)
     end
     categories

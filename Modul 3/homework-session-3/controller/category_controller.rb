@@ -43,7 +43,8 @@ class CategoryController
   end
 
   def create_category(params)
-    category = Category.new(0,params["name"])
+    category = Category.new({
+      name: params["name"]})
     category = category.save
     category
   end

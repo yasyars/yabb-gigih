@@ -15,11 +15,13 @@ class ItemController
   end
 
   def create_item(params)
-    name = params['name']
-    price= params['price']
     category_ids= params['category_ids']
     categories = Category.find_by_list_id(category_ids)
-    item = Item.new(0,name, price,categories)
+    item = Item.new({
+      name: params['name'],
+      price: params['price'],
+      categories: categories
+    })
     item.save_with_category
     list_items
   end
