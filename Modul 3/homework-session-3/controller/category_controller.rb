@@ -3,6 +3,8 @@ require './models/category'
 class CategoryController
   def list_categories
     categories = Category.find_all
+    items = Item.find_all
+    item_id = 0
     renderer = ERB.new(File.read("./views/categories.erb"))
     renderer.result(binding)
   end
@@ -48,6 +50,14 @@ class CategoryController
 
   def create_category_form
     renderer = ERB.new(File.read("./views/category_add.erb"))
+    renderer.result(binding)
+  end
+
+  def find_by_item_id(params)
+    categories = Category.find_by_item_id(params["item_id"])
+    items = Item.find_all
+    item_id = params["item_id"].to_i
+    renderer = ERB.new(File.read("./views/categories.erb"))
     renderer.result(binding)
   end
 

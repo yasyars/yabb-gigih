@@ -46,13 +46,21 @@ end
 
 get '/categories' do
   controller = CategoryController.new
-
   item_id = params["item_id"] ? params["item_id"] : 0 
-  # if item_id == 0
-  controller.list_categories
-  # else
-    # controller.find_by_item_id(item_id)
-  # end
+  if item_id == 0
+    controller.list_categories
+  else
+    controller.find_by_item_id(params)
+  end
+end
+
+post '/filter/categories' do
+  item_id = params["item_id"]
+  if item_id.to_i==0
+    redirect "/categories"
+  else
+    redirect "/categories?item_id=#{item_id}"
+  end
 end
 
 get '/categories/:category_id' do
