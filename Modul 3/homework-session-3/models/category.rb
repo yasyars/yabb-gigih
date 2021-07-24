@@ -60,18 +60,22 @@ class Category
 
   def self.find_by_list_id(ids)
     client = create_db_client
-    list_id= ids.join(',')
-
-    query = "SELECT * FROM categories WHERE id in (#{list_id})"
-    puts query
-    rawData = client.query(query)
+    list_id= ""
     categories = Array.new
-    rawData.each do |data|
-      category = Category.new({
-        id: data["id"], 
-        name: data["name"]})
-      categories.push(category)
+
+    if ids != nil
+      list_id= ids.join(',') 
+      query = "SELECT * FROM categories WHERE id in (#{list_id})"
+      puts query
+      rawData = client.query(query)
+      rawData.each do |data|
+        category = Category.new({
+          id: data["id"], 
+          name: data["name"]})
+        categories.push(category)
+      end
     end
+
     categories
   end
 
