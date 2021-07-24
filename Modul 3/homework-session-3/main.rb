@@ -100,7 +100,12 @@ end
 post '/categories' do
   controller = CategoryController.new
   category = controller.create_category(params)
-  redirect "/categories/#{category.id}/edit"
+
+  if category
+    redirect "/categories/#{category.id}/edit"
+  else
+    redirect "/categories"
+  end
 end
 
 get '/add/category' do

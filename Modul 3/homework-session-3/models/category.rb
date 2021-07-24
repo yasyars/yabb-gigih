@@ -124,6 +124,8 @@ class Category
   end
 
   def save
+    return false unless valid?
+
     client = create_db_client
 
     query = "INSERT IGNORE INTO categories (name) VALUES ('#{@name}')"
@@ -134,5 +136,10 @@ class Category
       category = Category.find_with_items(client.last_id)
     end
     category
+  end
+
+  def valid?
+    return false if @name.nil? || @name== ""
+    return true
   end
 end

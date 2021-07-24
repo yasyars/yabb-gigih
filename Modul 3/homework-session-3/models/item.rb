@@ -56,6 +56,7 @@ class Item
   end
 
   def save
+    return false unless valid?
     client = create_db_client
     client.query("INSERT INTO items (name,price) VALUES ('#{@name}', '#{@price}')")
     item = Item.find(client.last_id)
@@ -105,8 +106,8 @@ class Item
   end
 
   def valid?
-    return false if @name.nil?
-    return false if @price.nil?
+    return false if @name.nil? || @name == ""
+    return false if @price.nil? || @price ==""
     return true
   end
 
