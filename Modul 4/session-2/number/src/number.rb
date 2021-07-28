@@ -4,26 +4,22 @@ class Number
     @array = array
   end
 
-  # def stop(temp)
-  #   temp[temp.size-1]!=9
-  # end
-
-  # def recur(temp)
-  #   temp[temp.size-1]+=1
-  # end
+  def recur(temp_array)
+    if temp_array[-1] !=9
+      temp_array[-1]+=1
+      return temp_array
+    elsif temp_array.size ==1
+      temp_array[0]= 0
+      return temp_array.unshift(1)
+    else
+      temp = recur(temp_array[0...-1])
+      temp.append(0)
+      return temp
+    end
+  end
 
   def increment
-    if @array[@array.size-1]!= 9
-      @array[@array.size-1]+=1
-    else  
-      @array[@array.size-1] = 0
-      if @array[@array.size-2] !=9
-        @array[@array.size-2] +=1
-      else
-        @array[@array.size-2] = 0
-        @array.unshift(1)
-      end
-    end
+    @array = recur(@array)
     return @array
   end
 

@@ -24,4 +24,12 @@ RSpec.describe Number do
 
     expect(result).to eq([1,0,0])
   end
+
+  it 'return 1090 if 1089' do
+    number = Number.new([1,0,8,9])
+
+    result = number.increment
+
+    expect(result).to eq([1,0,9,0])
+  end
 end
