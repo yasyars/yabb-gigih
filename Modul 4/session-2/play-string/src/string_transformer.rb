@@ -1,6 +1,7 @@
 class StringTransformer
-  # def transform(word)
+  def transform(word)
   # return  "k" if word== "b"
   # "z"
-  # end
+  "k"
+  end
 end
