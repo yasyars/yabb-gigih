@@ -35,6 +35,37 @@ describe ItemController do
     end
   end
 
+  describe '#create_item' do
+    
+    context 'when given valid params' do
+      before [:each] do
+        controller = ItemController.new
+        params = {
+          "name" => "Banana",
+          "price" => "15000",
+          "category_ids" => ["1","2"]
+        }
+        @response= controller.create_item(params)
+      end
+      it 'should save item' do
+        expected_item = Item.find(1)
+        expect(expected_item).not_to be_nil
+      end
+
+      it 'should return right view' do
+        expected_view = ERB.new(File.read("./views/index.erb")).result_with_hash({
+          items: [Item.new({
+            id: "1",
+            name: "Banana",
+            price: "15000",
+            category_ids: ["1","2"]
+          })]
+        })
+        expect(@response).to eq(expected_view)
+      end
+    end
+  end
+
   describe '#list_items' do
     context 'when initialized'do 
       it 'should return item view'do
