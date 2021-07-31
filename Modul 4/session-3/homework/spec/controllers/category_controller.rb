@@ -1,7 +1,9 @@
 require_relative '../../controller/item_controller.rb'
 require './models/item'
+require_relative '../../controller/category_controller.rb'
+require './models/category'
 
-describe ItemController do
+describe CategoryController do
   before [:each] do
     client = create_db_client
     client.query("SET FOREIGN_KEY_CHECKS = 0")
@@ -9,14 +11,7 @@ describe ItemController do
     client.query("TRUNCATE TABLE items")
     client.query("TRUNCATE TABLE categories")
     client.query("SET FOREIGN_KEY_CHECKS =1")
-    @category1 = Category.new({
-      id:"1",
-      name: "Main Dish"})
-    @category1.save
-    @category2 = Category.new({
-      id: "2",
-      name: "Beverage"})
-    @category2.save
+    
   end
  
   describe '#create_item_form' do
@@ -24,7 +19,7 @@ describe ItemController do
       it 'should return view' do
         controller = ItemController.new
         response = controller.create_item_form
-        
+        categories = 
         expected_view = ERB.new(File.read("./views/create.erb")).result_with_hash(
         {
           categories: [@category1, @category2]

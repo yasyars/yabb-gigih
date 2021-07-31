@@ -1,6 +1,19 @@
 require './models/category'
 
 class CategoryController
+
+  def create_category(params)
+    category = Category.new({
+      name: params["name"]})
+    category = category.save
+    category
+  end
+
+  def create_category_form
+    renderer = ERB.new(File.read("./views/category_add.erb"))
+    renderer.result(binding)
+  end
+
   def list_categories
     categories = Category.find_all
     items = Item.find_all
@@ -42,17 +55,7 @@ class CategoryController
     category.delete
   end
 
-  def create_category(params)
-    category = Category.new({
-      name: params["name"]})
-    category = category.save
-    category
-  end
-
-  def create_category_form
-    renderer = ERB.new(File.read("./views/category_add.erb"))
-    renderer.result(binding)
-  end
+ 
 
   def find_by_item_id(params)
     categories = Category.find_by_item_id(params["item_id"])
