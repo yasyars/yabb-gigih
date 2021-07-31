@@ -39,7 +39,7 @@ class CategoryController
 
   def delete_category(params)
     category = Category.find_with_items(params["category_id"])
-    category.destroy
+    category.delete
   end
 
   def create_category(params)

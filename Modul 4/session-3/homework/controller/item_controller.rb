@@ -56,7 +56,7 @@ class ItemController
   def delete_item(params)
     item_id = params['item_id']
     item = Item.find(item_id)
-    item.destroy
+    item.delete
   end
 
 end

@@ -107,7 +107,7 @@ class Item
     client.query("DELETE FROM item_categories WHERE item_id=#{@id} AND category_id=#{category.id}")
   end
 
-  def destroy
+  def delete
     client = create_db_client
     delete_categories_from_item
     client.query("DELETE FROM order_details WHERE item_id = #{@id}")

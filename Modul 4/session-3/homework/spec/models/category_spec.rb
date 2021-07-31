@@ -1,9 +1,9 @@
-require './models/item'
+require './models/category'
 require './db/db_connector'
 
-##test untuk CRUD & validation utama model ITEM
+##test untuk CRUD & validation utama model Category
 
-describe Item do
+describe Category do
   before [:each] do
     client = create_db_client
     client.query("SET FOREIGN_KEY_CHECKS = 0")
@@ -62,42 +62,6 @@ describe Item do
     end
   end
 
-  describe '#find_all' do
-    context 'when there are items' do
-      before [:each] do
-        item = Item.new(
-          name: "Apple",
-          price: "15000"
-        )
-        item2 = Item.new(
-          name: "Mango",
-          price: "10000"
-        )
-        @item_expected1 = item.save
-        @item_expected2 = item2.save
-        @items = Item.find_all
-      end
-
-      it 'should return the right size' do
-        expect(@items.size).to eq(2)
-      end
-
-      it 'should return the right items' do
-        expect(@items[0].name).to eq(@item_expected1.name)
-        expect(@items[0].price).to eq(@item_expected1.price)
-        expect(@items[1].name).to eq(@item_expected2.name)
-        expect(@items[1].price).to eq(@item_expected2.price)
-      end
-    end
-
-    context 'when there are no items' do
-      it 'should return empty array ' do
-        item = Item.find_all
-        expect(item).to eq([])
-      end
-    end
-  end
-
   describe '#update' do
     before [:each] do
       item = Item.new(
@@ -127,7 +91,7 @@ describe Item do
     end
   end
 
-  describe "#delete" do
+  describe do
     before [:each] do
       item = Item.new(
         name: "Apple",

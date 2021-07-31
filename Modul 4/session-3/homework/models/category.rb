@@ -137,7 +137,7 @@ class Category
     end
   end
 
-  def destroy
+  def delete
     client = create_db_client
     delete_all_items
     client.query("DELETE FROM categories WHERE id= #{@id}")
