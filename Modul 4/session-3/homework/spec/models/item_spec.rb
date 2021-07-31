@@ -1,5 +1,5 @@
 require './models/item'
-require_relative '../db/db_connector'
+require './db/db_connector'
 
 describe Item do
   before [:each] do
@@ -34,6 +34,8 @@ describe Item do
       end
     end
   end
+
+ 
 
   
 end

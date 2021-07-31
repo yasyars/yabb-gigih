@@ -10,7 +10,27 @@ class Item
     @price =param[:price]
     @categories = param[:categories] ? param[:categories] : []
   end
+
+  #create
+
+  def save
+    return false unless valid?
+    client = create_db_client
+    client.query("INSERT INTO items (name,price) VALUES ('#{@name}', '#{@price}')")
+    item = Item.find(client.last_id)
+    item
+  end
  
+  def save_with_category
+    return false unless valid?
+    client = create_db_client
+    item = self.save
+    @categories.each do |category|
+      item.add_category(category)
+    end
+  end
+
+  #read
   def self.find(item_id)
     client = create_db_client
     query = "SELECT DISTINCT items.id, items.name , items.price FROM items WHERE items.id = #{item_id}"
@@ -55,24 +75,23 @@ class Item
     items
   end
 
-  def save
-    return false unless valid?
+  
+  #update
+  def update(new_name, new_price, new_categories)
     client = create_db_client
-    client.query("INSERT INTO items (name,price) VALUES ('#{@name}', '#{@price}')")
-    item = Item.find(client.last_id)
-    item
-  end
- 
-
-  def save_with_category
-    return false unless valid?
-    client = create_db_client
-    item = self.save
-    @categories.each do |category|
-      item.add_category(category)
+    delete_categories_from_item
+    client.query("UPDATE items SET name='#{new_name}', price='#{new_price}' WHERE id = #{@id}")
+    new_categories.each do |new_category|
+      client.query("INSERT INTO item_categories (item_id, category_id) VALUES(#{@id}, #{new_category.id})")
     end
   end
 
+   def add_category(category)
+    client = create_db_client
+    client.query("INSERT INTO item_categories (item_id, category_id) VALUES ('#{@id}', '#{category.id}')")
+  end
+
+  #delete
   def delete_categories_from_item
     client = create_db_client
     client.query("DELETE FROM item_categories WHERE item_id = #{@id}")
@@ -83,19 +102,10 @@ class Item
     client.query("DELETE FROM item_categories WHERE item_id=#{@id} AND category_id=#{category.id}")
   end
 
-  def add_category(category)
-    client = create_db_client
-    client.query("INSERT INTO item_categories (item_id, category_id) VALUES ('#{@id}', '#{category.id}')")
-  end
+ 
 
 
-  def update(new_name, new_price, new_categories)
-    client = create_db_client
-    delete_categories_from_item
-    new_categories.each do |new_category|
-      client.query("INSERT INTO item_categories (item_id, category_id) VALUES(#{@id}, #{new_category.id})")
-    end
-  end
+ 
 
 
   def destroy

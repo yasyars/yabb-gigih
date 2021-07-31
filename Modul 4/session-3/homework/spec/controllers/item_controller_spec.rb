@@ -1,4 +1,5 @@
 require_relative '../../controller/item_controller.rb'
+require './models/item'
 
 describe ItemController do
   describe '#list_items' do
@@ -7,21 +8,30 @@ describe ItemController do
         controller = ItemController.new
         response = controller.list_items
 
-        expected_view = ERB.new(File.read("./views/index.erb").result_with_hash(
-
-        ))
-        expect(response).to eq(expected_view.result)
+        expected_view = ERB.new(File.read("./views/index.erb")).result_with_hash(
+          {
+            items: Item.find_all
+          }
+        )
+        expect(response).to eq(expected_view)
       end
     end
   end
 
-  describe '#update' do
+  describe '#update_item' do
     context 'when the parameter is invalid' do
       it 'returns false' do
-        subject = Item.new({})
+        controller = ItemController.new
+        params = {
+          'item_id' => "",
+          'name' => "",
+          'price' => "",
+          'category_ids' => []
+        }
 
-        expect(subject.update).to eq false
+        expect{controller.update_item(params)}.to raise_error
       end
     end
+  end
 end
     

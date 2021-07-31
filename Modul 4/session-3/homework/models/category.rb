@@ -10,6 +10,24 @@ class Category
     @items = param[:items] ? param[:items] : []
   end
 
+  #create
+  def save
+    return false unless valid?
+
+    client = create_db_client
+
+    query = "INSERT IGNORE INTO categories (name) VALUES ('#{@name}')"
+    client.query(query)
+    if client.last_id ==0
+      category = Category.find_by_name_with_items(@name)
+    else
+      category = Category.find_with_items(client.last_id)
+    end
+    category
+  end
+
+
+  #read
   def self.find_all
     client = create_db_client
     rawData = client.query("SELECT * FROM categories ORDER BY categories.id ASC")
@@ -95,20 +113,22 @@ class Category
     categories
   end
 
+  #update
   def update(name)
     client = create_db_client
     query = "UPDATE categories SET name='#{name}' WHERE id = #{@id}"
     client.query(query)
   end
 
-  def delete_from_item(item_id)
-    item = Item.find(item_id)
-    item.delete_category_from_item(self)
-  end
-
   def add_item(item_id)
     item = Item.find(item_id)
     item.add_category(self)
+  end
+
+  #delete
+  def delete_from_item(item_id)
+    item = Item.find(item_id)
+    item.delete_category_from_item(self)
   end
 
   def delete_all_items
@@ -123,21 +143,7 @@ class Category
     client.query("DELETE FROM categories WHERE id= #{@id}")
   end
 
-  def save
-    return false unless valid?
-
-    client = create_db_client
-
-    query = "INSERT IGNORE INTO categories (name) VALUES ('#{@name}')"
-    client.query(query)
-    if client.last_id ==0
-      category = Category.find_by_name_with_items(@name)
-    else
-      category = Category.find_with_items(client.last_id)
-    end
-    category
-  end
-
+ 
   def valid?
     return false if @name.nil? || @name== ""
     return true
