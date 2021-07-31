@@ -7,7 +7,7 @@ describe Item do
   before [:each] do
     client = create_db_client
     client.query("SET FOREIGN_KEY_CHECKS = 0")
-    client.query("TRUNCATE TABLE orders")
+    client.query("TRUNCATE TABLE item_categories")
     client.query("TRUNCATE TABLE items")
     client.query("SET FOREIGN_KEY_CHECKS =1")
   end
