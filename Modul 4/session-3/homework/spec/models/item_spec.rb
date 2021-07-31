@@ -26,7 +26,7 @@ describe Item do
 
   describe '#save' do
     context 'when add new item' do
-      it 'should return item' do
+      it 'should return true' do
         item = Item.new({
           name: "Mango",
           price: "15000"

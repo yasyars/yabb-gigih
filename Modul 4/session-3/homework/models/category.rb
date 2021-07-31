@@ -1,4 +1,5 @@
 require_relative '../db/db_connector'
+require_relative 'Item'
 
 class Category
   attr_reader :id, :name, :items
@@ -45,6 +46,7 @@ class Category
     client = create_db_client
     rawData = client.query("SELECT * FROM categories WHERE id = #{id}")
     data = rawData.each[0]
+    return false if data.nil?
     category = Category.new({
       id: data["id"],
       name: data["name"]})
