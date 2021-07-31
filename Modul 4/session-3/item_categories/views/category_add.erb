@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<head>
+
+<h1 class="d-flex justify-content-center">Create Category</h1>
+<hr>
+
+  <div class="d-flex justify-content-center mt-5">
+   <table class="table w-50 mt-2" >
+      <tbody>
+        <tr>
+          <td class="pt-3">Category Name</td>
+          <td>
+            <form  method="POST" action='/categories'>
+              <div class="d-flex  form-group">
+                <input class="form-text mr-2" name="name" type="text" >                 
+                <button class=" btn btn-primary " type="submit"> Add Category</button>
+              </div>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+
+<a class="d-flex justify-content-center mt-2" href='/categories'>Back</a>
+</html>

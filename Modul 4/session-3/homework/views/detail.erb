@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<head>
+
+<h1 class="d-flex justify-content-center">Item Detail</h1>
+<hr>
+
+<div class="d-flex justify-content-center">
+<table class="table w-50 mt-5" >
+  <tbody>
+    <tr>
+      <td>Item Name</td>
+      <td><%= item.name%></td>
+    </tr>
+    <tr>
+      <td>Item Price</td>
+      <td>Rp <%= item.price %> </td>
+    </tr>
+    <tr>
+      <td>Item Category</td>
+      <td>
+          <% item.categories.each do |category| %>
+            <li>
+             <%= category.name %><br>
+            </li>
+          <% end %>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<a class="d-flex justify-content-center mt-5 mr-2" href='/items/<%= item.id %>/edit'> Edit</a>
+
+<a class="d-flex justify-content-center mt-2" href='/'>Back</a>
+
+</html>

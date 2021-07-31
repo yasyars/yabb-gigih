@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<head>
+
+<h1 class="d-flex justify-content-center">Items</h1>
+<hr>
+
+<div class="d-flex justify-content-center">
+  <table class="table w-50" >
+    <thead class="thead-dark">
+      <th>Name</th>
+      <th>Price</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+    <% items.each do |item| %>
+      <tr>
+        <td><%= item.name%></td>
+        <td>Rp <%= item.price %> </td>
+        <td>
+          <form action='/items/<%= item.id %>' method="POST">
+
+          <a class="mr-2" href='/items/<%= item.id %>'> Show</a> 
+          <a class="mr-2" href='/items/<%= item.id %>/edit'> Edit</a>
+           <input name="_method" type="hidden" value="delete">
+          <button  class="btn btn-secondary btn-sm" type=”submit” value=”delete”>Delete </button>
+          </form>
+        </td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+  
+  <div class="d-flex flex-column ml-2" >
+    <a class= "btn btn-primary mb-2 " href = "/items/new">
+      <div class="fa fa-plus d-flex justify-content-center"></div>
+      <div>New Item</div>
+    </a>
+    <a class= "btn btn-warning  " href = "/categories">
+      <div class=" d-flex justify-content-center"></div>
+      <div>See <br>Categories</div>
+    </a>
+  </div>
+
+  
+
+</div>
+
+</html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

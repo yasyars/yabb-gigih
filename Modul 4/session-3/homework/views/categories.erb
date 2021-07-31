@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<head>
+
+<h1 class="d-flex justify-content-center">Categories</h1>
+<hr>
+<div class="d-flex justify-content-center mb-3 mt-5 ">
+  <p class="pt-2">
+  Select items: 
+  </p>
+  <div class="col-sm-5">
+  <form method="POST" action="/filter/categories">
+    <select class="custom-select" name="item_id">
+      <option value=0 >All</option>
+      <%items.each do |item|%>
+        <option value=<%=item.id%>
+        <%if item_id == item.id%>
+        selected
+        <%end%>><%=item.name%></option>
+      <%end%>
+    </select>
+    </div>
+    <div>
+      <button type="submit" class="btn btn-dark ml-2">Filter</button>
+    </div>
+  </form>
+
+</div>
+
+<div class="d-flex justify-content-center">
+  
+  <table class="table col-md-6" >
+    <thead class="thead-dark">
+      <th>Categories Name</th>
+      <th>Action</th>
+    </thead>
+    <tbody>
+    <% categories.each do |category|%>
+      <tr>
+        <td><%=category.name%></td>
+        <td>
+          <form method="POST" action="/categories/<%=category.id%>">
+            <a href="/categories/<%=category.id%>" class="mr-2">Show items</a>
+            <a href="/categories/<%=category.id%>/edit" class="mr-2">Edit</a>
+
+            <input name="_method" type="hidden" value="delete">
+          <button  class="btn btn-secondary btn-sm" type=”submit” value=”delete”>Delete </button>
+          </form>
+        </td>
+      </tr>
+    <%end%>
+    </tbody>
+  </table>
+  
+  <div class="d-flex flex-column ml-2" >
+    <a class= "btn btn-primary mb-2 " href = "/add/category">
+      <div class="fa fa-plus d-flex justify-content-center"></div>
+      <div>New <br>Category</div>
+    </a>
+    <a class= " mb-2 text-center" href = "/">
+      <div class=" d-flex justify-content-center"></div>
+      <div>Back</div>
+    </a>
+    
+  </div>
+
+  
+
+</div>
+
+</html>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

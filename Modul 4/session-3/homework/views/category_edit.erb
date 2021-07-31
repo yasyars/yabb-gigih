@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<head>
+
+<h1 class="d-flex justify-content-center">Edit Category</h1>
+<hr>
+
+  <div class="d-flex justify-content-center mt-5">
+   <table class="table w-50 mt-2" >
+      <tbody>
+        <tr>
+          <td>Category Name</td>
+          <td>
+            <form  method="POST" action='/categories/<%= category.id %>'>
+              <div class="d-flex  form-group">
+                <input class="form-text mr-2" name="name" type="text" value="<%=category.name%>">                 
+                <input name="_method" type="hidden" value="put">
+                <button class=" btn btn-primary " type="submit"> Update Name</button>
+              </div>
+            </form>
+
+          </td>
+        </tr>
+        <tr>
+          <td>Items</td>
+          <td>
+          <% category.items.each do |item| %>
+            <form  method="POST" action="/categories/<%=category.id%>/items/<%=item.id%>">
+              <li>
+               <%= item.name %> &nbsp &nbsp 
+                <input name="_method" type="hidden" value="delete">
+               <button type="submit" class="btn btn-sm fa fa-times text-danger"></button><br>
+              </li>
+            </form>
+          <% end %>
+
+          <form  class="mt-3 d-flex form-group" method="POST" action="/categories/<%=category.id%>/items">
+            <select name="item_id">
+              <%items.each do |item|%>
+                <option value=<%=item.id%>><%=item.name%></option>
+              <%end%>
+            </select>
+            <button type="submit" class="ml-2 btn btn-sm text-primary fa fa-plus"href=# class="pt-2 fa fa-plus"></button>
+          </form>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+
+<a class="d-flex justify-content-center mt-2" href='/categories'>Back</a>
+</html>
