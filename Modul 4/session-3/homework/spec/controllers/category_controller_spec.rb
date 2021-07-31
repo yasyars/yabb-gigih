@@ -14,50 +14,32 @@ describe CategoryController do
     
   end
  
-  describe '#create_item_form' do
+  describe '#create_category_form' do
     context 'when initialize' do
       it 'should return view' do
-        controller = ItemController.new
-        response = controller.create_item_form
-        categories = 
-        expected_view = ERB.new(File.read("./views/create.erb")).result_with_hash(
-        {
-          categories: [@category1, @category2]
-        })
-
+        controller = CategoryController.new
+        response = controller.create_category_form
+        
+        expected_view = ERB.new(File.read("./views/category_add.erb")).result
+     
         expect(response).to eq(expected_view)
       end
     end
   end
 
-  describe '#create_item' do
+  describe '#create_category' do
     
     context 'when given valid params' do
-      before [:each] do
-        controller = ItemController.new
+      
+      it 'should save cateogry' do
+        controller = CategoryController.new
         params = {
-          "name" => "Banana",
-          "price" => "15000",
-          "category_ids" => ["1","2"]
+          "name" => "Main Dish",
         }
-        @response= controller.create_item(params)
-      end
-      it 'should save item' do
-        expected_item = Item.find(1)
-        expect(expected_item).not_to be_nil
+        expected = Category.find(1)
+        expect(expected).not_to be_nil
       end
 
-      it 'should return right view' do
-        expected_view = ERB.new(File.read("./views/index.erb")).result_with_hash({
-          items: [Item.new({
-            id: "1",
-            name: "Banana",
-            price: "15000",
-            categories: [@category1,@category2]
-          })]
-        })
-        expect(@response).to eq(expected_view)
-      end
     end
   end
 
