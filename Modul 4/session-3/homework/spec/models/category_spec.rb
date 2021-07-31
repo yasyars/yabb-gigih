@@ -100,50 +100,47 @@ describe Category do
     end
   end
 
-  # describe '#update' do
-  #   before [:each] do
-  #     item = Item.new(
-  #       name: "Apple",
-  #       price: "15000"
-  #     )
-  #     item.save
-  #   end
+  describe '#update' do
+    before [:each] do
+      category = Category.new(
+        name: "Main Dish",
+      )
+      category.save
+    end
 
-  #   context 'when given valid attribute' do
-  #     it 'should return true' do
-  #       item = Item.find(1)        
-  #       item.update("Mango","20000")
+    context 'when given valid attribute' do
+      it 'should return true' do
+        category = Category.find(1)        
+        category.update("Dinner")
 
-  #       item_result = Item.find(1)
+        category_result = Category.find(1)
 
-  #       expect(item.name).to eq(item_result.name)
-  #       expect(item.price).to eq(item_result.price)
-  #     end
-  #   end
+        expect(category.name).to eq(category_result.name)
+      end
+    end
 
-  #   context 'when given invalid attribute' do
-  #     it 'should return false' do
-  #       item = Item.find(1)   
-  #       expect(item.update("","")).to be(false)
-  #     end
-  #   end
-  # end
+    context 'when given invalid attribute' do
+      it 'should return false' do
+        category = Category.find(1)   
+        expect(category.update("")).to be(false)
+      end
+    end
+  end
 
-  # describe do
-  #   before [:each] do
-  #     item = Item.new(
-  #       name: "Apple",
-  #       price: "15000"
-  #     )
-  #     item.save
-  #   end
+  describe 'delete'do
+     before [:each] do
+      category = Category.new(
+        name: "Main Dish",
+      )
+      category.save
+    end
 
-  #   context 'when delete exist item' do
-  #     it 'should return true' do 
-  #       item = Item.find(1)
-  #       item.delete
-  #     end
-  #   end
+    context 'when delete exist item' do
+      it 'should return true' do 
+        category = Category.find(1)
+        category.delete
+      end
+    end
     
-  # end
+  end
 end

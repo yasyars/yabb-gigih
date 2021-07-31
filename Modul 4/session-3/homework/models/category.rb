@@ -118,6 +118,8 @@ class Category
   #update
   def update(name)
     client = create_db_client
+    @name = name
+    return false unless valid?
     query = "UPDATE categories SET name='#{name}' WHERE id = #{@id}"
     client.query(query)
   end
