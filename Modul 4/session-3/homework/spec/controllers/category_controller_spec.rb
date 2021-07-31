@@ -43,14 +43,16 @@ describe CategoryController do
     end
   end
 
-  describe '#list_items' do
+  describe '#list_category' do
     context 'when initialized'do 
       it 'should return item view'do
-        controller = ItemController.new
-        response = controller.list_items
-        expected_view = ERB.new(File.read("./views/index.erb")).result_with_hash(
+        controller = CategoryController.new
+        response = controller.list_categories
+        expected_view = ERB.new(File.read("./views/categories.erb")).result_with_hash(
           {
-            items: Item.find_all
+            categories: Category.find_all,
+            items: Item.find_all,
+            item_id: 0
           }
         )
         expect(response).to eq(expected_view)
