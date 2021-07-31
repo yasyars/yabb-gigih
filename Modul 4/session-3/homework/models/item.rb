@@ -102,12 +102,6 @@ class Item
     client.query("DELETE FROM item_categories WHERE item_id=#{@id} AND category_id=#{category.id}")
   end
 
- 
-
-
- 
-
-
   def destroy
     client = create_db_client
     delete_categories_from_item
@@ -119,6 +113,12 @@ class Item
     return false if @name.nil? || @name == ""
     return false if @price.nil? || @price ==""
     return true
+  end
+
+  def valid_with_category?
+    return false unless valid?
+    return false if @category.nil?
+    true
   end
 
 end

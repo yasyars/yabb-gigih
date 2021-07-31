@@ -24,9 +24,8 @@ describe Item do
 
   describe '#save' do
     context 'when add new item' do
-      it 'should return the item' do
+      it 'should return item' do
         item = Item.new({
-          id: "4",
           name: "Apple",
           price: "15000"
         })
@@ -35,7 +34,27 @@ describe Item do
     end
   end
 
- 
+  describe '#find' do
+    before [:each] do
+      item = Item.new(
+        name: "Apple",
+        price: "15000"
+      )
+      @item_expected = item.save
+    end
+
+    context 'when find item' do
+      it 'should return the right item' do
+        item = Item.find(1)
+        expect(item.id).to eq(@item_expected.id)
+        expect(item.name).to eq(@item_expected.name)
+        expect(item.price).to eq(@item_expected.price)
+
+      end
+    end
+  end
+
+
 
   
 end
