@@ -20,7 +20,7 @@ describe ItemController do
 
   describe '#update_item' do
     context 'when the parameter is invalid' do
-      it 'returns false' do
+      it 'returns error' do
         controller = ItemController.new
         params = {
           'item_id' => "",
@@ -29,7 +29,7 @@ describe ItemController do
           'category_ids' => []
         }
 
-        expect{controller.update_item(params)}.to raise_error
+        expect{controller.update_item(params)}.to raise_error(TypeError)
       end
     end
   end

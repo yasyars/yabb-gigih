@@ -35,6 +35,7 @@ class Item
     client = create_db_client
     query = "SELECT DISTINCT items.id, items.name , items.price FROM items WHERE items.id = #{item_id}"
     data = client.query(query).first
+    return false if data.nil?
     categories = Category.find_by_item_id(data["id"])
     item = Item.new({
       id:data["id"], 
@@ -77,8 +78,12 @@ class Item
 
   
   #update
-  def update(new_name, new_price, new_categories)
+  def update(new_name, new_price, new_categories=[])
     client = create_db_client
+    @name = new_name
+    @price = new_price.to_f
+    @categories = new_categories
+    return false unless valid?
     delete_categories_from_item
     client.query("UPDATE items SET name='#{new_name}', price='#{new_price}' WHERE id = #{@id}")
     new_categories.each do |new_category|
