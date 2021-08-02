@@ -2,12 +2,7 @@ require './models/item'
 require './models/category'
 
 class ItemController
-  def list_items
-    items = Item.find_all
-    renderer = ERB.new(File.read("./views/index.erb"))
-    renderer.result(binding)
-  end
-
+ 
   def create_item_form
     categories = Category.find_all
     renderer = ERB.new(File.read("./views/create.erb"))
@@ -25,6 +20,13 @@ class ItemController
     item.save_with_category
     list_items
   end
+
+   def list_items
+    items = Item.find_all
+    renderer = ERB.new(File.read("./views/index.erb"))
+    renderer.result(binding)
+  end
+
   
   def edit_item_form(params)
     categories = Category.find_all
@@ -56,7 +58,7 @@ class ItemController
   def delete_item(params)
     item_id = params['item_id']
     item = Item.find(item_id)
-    item.destroy
+    item.delete
   end
 
 end

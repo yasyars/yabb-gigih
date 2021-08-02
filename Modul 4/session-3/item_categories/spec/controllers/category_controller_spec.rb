@@ -1,7 +1,9 @@
 require_relative '../../controller/item_controller.rb'
 require './models/item'
+require_relative '../../controller/category_controller.rb'
+require './models/category'
 
-describe ItemController do
+describe CategoryController do
   before [:each] do
     client = create_db_client
     client.query("SET FOREIGN_KEY_CHECKS = 0")
@@ -10,71 +12,48 @@ describe ItemController do
     client.query("TRUNCATE TABLE categories")
     client.query("SET FOREIGN_KEY_CHECKS =1")
     client.close
-    @category1 = Category.new({
-      id:"1",
-      name: "Main Dish"})
-    @category1.save
-    @category2 = Category.new({
-      id: "2",
-      name: "Beverage"})
-    @category2.save
+    
   end
  
-  describe '#create_item_form' do
+  describe '#create_category_form' do
     context 'when initialize' do
       it 'should return view' do
-        controller = ItemController.new
-        response = controller.create_item_form
+        controller = CategoryController.new
+        response = controller.create_category_form
         
-        expected_view = ERB.new(File.read("./views/create.erb")).result_with_hash(
-        {
-          categories: [@category1, @category2]
-        })
-
+        expected_view = ERB.new(File.read("./views/category_add.erb")).result
+     
         expect(response).to eq(expected_view)
       end
     end
   end
 
-  describe '#create_item' do
+  describe '#create_category' do
     
     context 'when given valid params' do
-      before [:each] do
-        controller = ItemController.new
+      
+      it 'should save cateogry' do
+        controller = CategoryController.new
         params = {
-          "name" => "Banana",
-          "price" => "15000",
-          "category_ids" => ["1","2"]
+          "name" => "Main Dish",
         }
-        @response= controller.create_item(params)
-      end
-      it 'should save item' do
-        expected_item = Item.find(1)
-        expect(expected_item).not_to be_nil
+        expected = Category.find(1)
+        expect(expected).not_to be_nil
       end
 
-      it 'should return right view' do
-        expected_view = ERB.new(File.read("./views/index.erb")).result_with_hash({
-          items: [Item.new({
-            id: "1",
-            name: "Banana",
-            price: "15000",
-            categories: [@category1,@category2]
-          })]
-        })
-        expect(@response).to eq(expected_view)
-      end
     end
   end
 
-  describe '#list_items' do
+  describe '#list_category' do
     context 'when initialized'do 
       it 'should return item view'do
-        controller = ItemController.new
-        response = controller.list_items
-        expected_view = ERB.new(File.read("./views/index.erb")).result_with_hash(
+        controller = CategoryController.new
+        response = controller.list_categories
+        expected_view = ERB.new(File.read("./views/categories.erb")).result_with_hash(
           {
-            items: Item.find_all
+            categories: Category.find_all,
+            items: Item.find_all,
+            item_id: 0
           }
         )
         expect(response).to eq(expected_view)
