@@ -1,3 +1,9 @@
+language: python
+
+python:
+- '3.7.3'
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_71e639a74e44_key -iv $encrypted_71e639a74e44_iv
   -in id_ed25519.enc -out ~\/.ssh/id_ed25519 -d
+- chmod 400 -/.ssh/id_ed25519
