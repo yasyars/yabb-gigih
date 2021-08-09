@@ -1,0 +1,10 @@
+- hosts: all
+  tasks:
+  # - name: Run ruby app
+  #   get_url:
+  #     url: https://deb.nodesource.com/setup_12.x
+  #     dest: /tmp/node_setup.sh
+  #     mode: '0755'
+  - name: Run Ruby App
+    become: yes
+    command: sudo systemctl stop sinatra.service
