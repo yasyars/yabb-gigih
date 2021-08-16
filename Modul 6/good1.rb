@@ -5,10 +5,6 @@
   user = User.new(params)
   user.role = "admin"
 
-  if user.password.blank?
-    user.generate_password
-  end
-
   user.valid?
   user.duplicate?
   
