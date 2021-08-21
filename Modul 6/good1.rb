@@ -8,7 +8,8 @@
   user.valid?
   user.duplicate?
   
-  user.save
-  user.send_mail_confirmation
+  if user.save
+    user.send_mail_confirmation
+  end
   user
  end
